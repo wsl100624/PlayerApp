@@ -10,9 +10,9 @@ import AVFoundation
 
 class PlayerViewController: UIViewController {
     
-    private lazy var scrubberView = ScrubberView()
-    
     private lazy var player = AVPlayer()
+    
+    private lazy var scrubberView = ScrubberView()
     
     private lazy var playerView = PlayerView()
     
@@ -33,6 +33,7 @@ class PlayerViewController: UIViewController {
     // get current time
     private var timeObserverToken: Any?
     
+    // denominator for seconds, perhaps this should be large enough to match the "shutter speed"?
     private let preferredTimeScale: CMTimeScale = 600
     
     init() {
@@ -59,14 +60,7 @@ class PlayerViewController: UIViewController {
         super.viewWillDisappear(animated)
     }
     
-    private func removePlayerObserver() {
-        player.pause()
-        
-        if let timeObserverToken = timeObserverToken {
-            player.removeTimeObserver(timeObserverToken)
-            self.timeObserverToken = nil
-        }
-    }
+    // MARK: - Player
     
     private func loadVideo() {
         // video reference: https://www.pexels.com/video/high-speed-photography-of-blue-ink-diffusion-in-water-9669109/
@@ -95,6 +89,29 @@ class PlayerViewController: UIViewController {
             }
         }
         
+    }
+    
+    private func validateValues(for asset: AVAsset, with keys: [String]) -> Bool {
+        for key in keys {
+            var error: NSError?
+            if asset.statusOfValue(forKey: key, error: &error) == .failed {
+                let message = "The media failed to load the key \(key)."
+                showAlert(message)
+                return false
+            }
+        }
+        
+        if !asset.isPlayable {
+            let message = "The media isn't playable."
+            showAlert(message)
+            return false
+        } else if asset.hasProtectedContent {
+            let message = "it contains protected content."
+            showAlert(message)
+            return false
+        }
+        
+        return true
     }
     
     private func setupPlayer(_ asset: AVAsset) {
@@ -126,12 +143,73 @@ class PlayerViewController: UIViewController {
         }
     }
     
+    private func removePlayerObserver() {
+        player.pause()
+        
+        if let timeObserverToken = timeObserverToken {
+            player.removeTimeObserver(timeObserverToken)
+            self.timeObserverToken = nil
+        }
+    }
+    
+    // MARK: - Play Button
+    
+    private func setupPlayPauseButton() {
+        let barButtonItem = UIBarButtonItem(customView: playPauseButton)
+        toolbarItems = [.flexibleSpace(), barButtonItem, .flexibleSpace()]
+    }
+    
+    private func updatePlayPauseButton() {
+        let status = self.player.timeControlStatus
+        
+        switch status {
+        case .playing:
+            self.playPauseButton.setPauseIcon()
+        default:
+            self.playPauseButton.setPlayIcon()
+        }
+    }
+    
+    @objc private func playPauseButtonPressed() {
+        switch player.timeControlStatus {
+        case .playing:
+            player.pause()
+        case .paused:
+            seekToStartIfNeeded()
+            player.play()
+        default:
+            player.pause()
+        }
+    }
+    
+    // MARK: - Scrubber View
+    
+    private func setupScrubberView() {
+        view.addSubview(scrubberView)
+        [
+            scrubberView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrubberView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrubberView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            scrubberView.heightAnchor.constraint(equalToConstant: .cellHeight)
+        ].forEach { $0.isActive = true }
+        
+        scrubberView.handleImageError = { [weak self] message in
+            self?.showAlert(message)
+        }
+        
+        scrubberView.handleScroll = { [weak self] currentTime in
+            self?.updateVideo(currentTime)
+        }
+    }
+    
     private func updateScrubberView(_ time: CMTime) {
         let timeElapsed = time.seconds
         if player.timeControlStatus == .playing {
             scrubberView.updateUI(timeElapsed)
         }
     }
+    
+    // MARK: - Show/Hide UI
     
     private func updateUI() {
         guard let currentItem = player.currentItem else {
@@ -158,62 +236,7 @@ class PlayerViewController: UIViewController {
         playPauseButton.isHidden = false
     }
     
-    private func updatePlayPauseButton() {
-        let status = self.player.timeControlStatus
-        
-        switch status {
-        case .playing:
-            self.playPauseButton.setPauseIcon()
-        default:
-            self.playPauseButton.setPlayIcon()
-        }
-    }
-    
-    private func validateValues(for asset: AVAsset, with keys: [String]) -> Bool {
-        for key in keys {
-            var error: NSError?
-            if asset.statusOfValue(forKey: key, error: &error) == .failed {
-                let message = "The media failed to load the key \(key)."
-                showAlert(message)
-                return false
-            }
-        }
-        
-        if !asset.isPlayable {
-            let message = "The media isn't playable."
-            showAlert(message)
-            return false
-        } else if asset.hasProtectedContent {
-            let message = "it contains protected content."
-            showAlert(message)
-            return false
-        }
-        
-        return true
-    }
-    
-    private func setupPlayPauseButton() {
-        let barButtonItem = UIBarButtonItem(customView: playPauseButton)
-        toolbarItems = [.flexibleSpace(), barButtonItem, .flexibleSpace()]
-    }
-    
-    private func setupScrubberView() {
-        view.addSubview(scrubberView)
-        [
-            scrubberView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrubberView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrubberView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            scrubberView.heightAnchor.constraint(equalToConstant: .cellHeight)
-        ].forEach { $0.isActive = true }
-        
-        scrubberView.handleCaptureError = { [weak self] message in
-            self?.showAlert(message)
-        }
-        
-        scrubberView.handleScroll = { [weak self] currentTime in
-            self?.updateVideo(currentTime)
-        }
-    }
+   // MARK: - Control Video
     
     private func updateVideo(_ currentTime: Double) {
         let time = CMTime(seconds:currentTime, preferredTimescale: preferredTimeScale)
@@ -268,28 +291,13 @@ class PlayerViewController: UIViewController {
             playerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             playerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             playerView.topAnchor.constraint(equalTo: view.topAnchor),
-            playerView.bottomAnchor.constraint(equalTo: scrubberView.topAnchor, constant: -32),
+            playerView.bottomAnchor.constraint(equalTo: scrubberView.topAnchor, constant: .playerPadBottom),
         ].forEach { $0.isActive = true }
     }
     
     private func seekToStartIfNeeded() {
         if player.currentItem?.currentTime() == player.currentItem?.duration {
             player.seek(to: .zero)
-        }
-    }
-    
-    
-    // MARK: - Action
-
-    @objc private func playPauseButtonPressed() {
-        switch player.timeControlStatus {
-        case .playing:
-            player.pause()
-        case .paused:
-            seekToStartIfNeeded()
-            player.play()
-        default:
-            player.pause()
         }
     }
 }

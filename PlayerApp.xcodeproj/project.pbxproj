@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BE17E803273D6BEC00823DAE /* Double+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE17E802273D6BEC00823DAE /* Double+Ext.swift */; };
 		BE537017273CC7FF007C9C2F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE537016273CC7FF007C9C2F /* AppDelegate.swift */; };
 		BE537020273CC800007C9C2F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE53701F273CC800007C9C2F /* Assets.xcassets */; };
 		BE537023273CC800007C9C2F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE537021273CC800007C9C2F /* LaunchScreen.storyboard */; };
@@ -49,6 +50,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BE17E802273D6BEC00823DAE /* Double+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Ext.swift"; sourceTree = "<group>"; };
 		BE537013273CC7FF007C9C2F /* PlayerApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlayerApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE537016273CC7FF007C9C2F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BE53701F273CC800007C9C2F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -154,8 +156,8 @@
 		BE537046273CC830007C9C2F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				BE537071273D361B007C9C2F /* video.mp4 */,
 				BE537016273CC7FF007C9C2F /* AppDelegate.swift */,
+				BE537071273D361B007C9C2F /* video.mp4 */,
 				BE53701F273CC800007C9C2F /* Assets.xcassets */,
 				BE537021273CC800007C9C2F /* LaunchScreen.storyboard */,
 				BE537024273CC800007C9C2F /* Info.plist */,
@@ -179,6 +181,7 @@
 				BE537052273CCB52007C9C2F /* UIButton+Ext.swift */,
 				BE537059273CCE85007C9C2F /* CGFloat+Ext.swift */,
 				BE537068273CE465007C9C2F /* UIViewController+Ext.swift */,
+				BE17E802273D6BEC00823DAE /* Double+Ext.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -343,6 +346,7 @@
 				BE537069273CE465007C9C2F /* UIViewController+Ext.swift in Sources */,
 				BE53705A273CCE85007C9C2F /* CGFloat+Ext.swift in Sources */,
 				BE537056273CCD0F007C9C2F /* ScrubberView.swift in Sources */,
+				BE17E803273D6BEC00823DAE /* Double+Ext.swift in Sources */,
 				BE537017273CC7FF007C9C2F /* AppDelegate.swift in Sources */,
 				BE53704F273CCAA9007C9C2F /* UIImage+Ext.swift in Sources */,
 				BE53705E273CD2BE007C9C2F /* ScrubberView+CollectionView.swift in Sources */,

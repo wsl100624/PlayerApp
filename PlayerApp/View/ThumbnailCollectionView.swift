@@ -12,7 +12,7 @@ class ThumbnailCollectionView: UICollectionView {
     static func createLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = .init(width: .cellWidth, height: .cellHeight)
-        layout.minimumLineSpacing = 0.5
+        layout.minimumLineSpacing = 0
         layout.scrollDirection = .horizontal
         return layout
     }
@@ -22,15 +22,15 @@ class ThumbnailCollectionView: UICollectionView {
         setup()
     }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     private func setup() {
         translatesAutoresizingMaskIntoConstraints = false
         register(ThumbnailCell.self, forCellWithReuseIdentifier: ThumbnailCell.id)
         alwaysBounceHorizontal = true
         alwaysBounceVertical = false
         showsHorizontalScrollIndicator = false
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }

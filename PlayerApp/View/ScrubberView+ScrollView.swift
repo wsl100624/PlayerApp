@@ -11,16 +11,21 @@ import UIKit
 extension ScrubberView {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        // make sure it's not been called when first loaded
         guard scrollView.isDragging || scrollView.isTracking || scrollView.isDecelerating else { return }
+        
         let currentTime = calculateCurrentTime(scrollView)
+        
         updateTimeLabel(currentTime)
-        snapNeedleAndTimeLabel(scrollView)
         handleScroll?(currentTime)
+        
+        snapNeedleAndTimeLabel(scrollView)
     }
     
     private func calculateCurrentTime(_ scrollView: UIScrollView) -> Double {
         let totalLength = scrollView.contentSize.width
-        let currentPosition = scrollView.contentOffset.x + initialInset
+        let currentPosition = scrollView.contentOffset.x + centerInset
         
         // 0 <= ration <= 1
         let ratio = min(max(currentPosition / totalLength, 0.0), 1.0)
@@ -31,7 +36,7 @@ extension ScrubberView {
     }
     
     private func snapNeedleAndTimeLabel(_ scrollView: UIScrollView) {
-        let currentPosition = scrollView.contentOffset.x + initialInset
+        let currentPosition = scrollView.contentOffset.x + centerInset
         let totalLength = scrollView.contentSize.width
         
         var dragDistance: CGFloat = 0
@@ -44,17 +49,6 @@ extension ScrubberView {
         
         needleViewCenterXConstraint.constant = dragDistance
         timeLabelCenterXConstraint.constant = dragDistance
-    }
-    
-    func updateTimeLabel(_ time: Double) {
-        let components = DateComponents(second: Int(time))
-        let formatter = DateComponentsFormatter()
-        formatter.zeroFormattingBehavior = .pad
-        formatter.unitsStyle = .positional
-        formatter.allowedUnits = [.minute, .second]
-        
-        let text = formatter.string(for: components)
-        timeLabel.text = text
     }
     
 }

@@ -14,27 +14,23 @@ class ScrubberView: UIView {
     private lazy var needleView = NeedleView()
     private(set) lazy var timeLabel = TimeLabel()
     private lazy var dispatchGroup = DispatchGroup()
-    private let captureInterval: Double = 5.0
     
-    var initialInset: CGFloat = 0
+    var centerInset: CGFloat = 0
     var thumbnails = [Thumbnail]()
+    var asset: AVAsset? { didSet { createThumbnails(asset) } }
     
-    var asset: AVAsset? {
-        didSet {
-            guard let asset = asset else { return }
-            createThumbnails(asset)
-        }
-    }
-    
-    var handleCaptureError: ((String) -> Void)?
+    var handleImageError: ((String) -> Void)?
     var handleScroll: ((Double) -> Void)?
     
     var needleViewCenterXConstraint: NSLayoutConstraint!
     var timeLabelCenterXConstraint: NSLayoutConstraint!
     
+    // MARK: - UIView Lifecycle
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         translatesAutoresizingMaskIntoConstraints = false
+        
         setupTimeLabel()
         setupCollectionView()
         setupNeedleView()
@@ -46,24 +42,21 @@ class ScrubberView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
-        initialInset = bounds.width / 2
-        collectionView.contentInset = .init(top: .zero, left: initialInset, bottom: .zero, right: initialInset)
+        setCollectionViewInset()
     }
+    
+    // MARK: - Update View
     
     func updateUI(_ time: Double) {
         updateTimeLabel(time)
-        moveCollectionView(time)
+        scrollCollectionView(time)
     }
     
-    private func moveCollectionView(_ time: Double) {
-        let totalDuration = asset?.duration.seconds ?? 0.0
-        let ratio = time / totalDuration
-        
-        let totalLength = collectionView.contentSize.width
-        let currentPosition = ratio * totalLength
-        collectionView.contentOffset.x = currentPosition - initialInset
+    func updateTimeLabel(_ time: Double) {
+        timeLabel.text = time.formatted()
     }
+    
+    // MARK: - Private Functions
     
     private func setupCollectionView() {
         collectionView.dataSource = self
@@ -97,16 +90,31 @@ class ScrubberView: UIView {
         
         [
             timeLabelCenterXConstraint,
-            timeLabel.bottomAnchor.constraint(equalTo: topAnchor, constant: -8)
+            timeLabel.bottomAnchor.constraint(equalTo: topAnchor, constant: .labelPadBottom)
         ].forEach { $0.isActive = true }
+    }
+    
+    
+    private func setCollectionViewInset() {
+        centerInset = bounds.width / 2
+        collectionView.contentInset = .init(top: .zero, left: centerInset, bottom: .zero, right: centerInset)
+    }
+    
+    private func scrollCollectionView(_ time: Double) {
+        let totalDuration = asset?.duration.seconds ?? 0.0
+        let ratio = time / totalDuration
+        
+        let totalLength = collectionView.contentSize.width
+        let currentPosition = ratio * totalLength
+        collectionView.contentOffset.x = currentPosition - centerInset
     }
     
     private func getCaptureTimes(_ asset: AVAsset) -> [NSValue] {
         var times = [NSValue]()
-        let thumbnailCount = Int(asset.duration.seconds / captureInterval)
+        let thumbnailCount = Int(asset.duration.seconds / .captureInterval)
         
         for i in 0...thumbnailCount {
-            let seconds = Int(captureInterval) * i
+            let seconds = Int(.captureInterval) * i
             let time = CMTime(seconds: Double(seconds), preferredTimescale: 1)
             times.append(NSValue(time: time))
             dispatchGroup.enter()
@@ -114,13 +122,17 @@ class ScrubberView: UIView {
         return times
     }
     
-    private func createThumbnails(_ asset: AVAsset) {
+    private func createThumbnails(_ asset: AVAsset?) {
+        guard let asset = asset else { return }
+        
         let imageGenerator = AVAssetImageGenerator(asset: asset)
         imageGenerator.appliesPreferredTrackTransform = true
-        imageGenerator.generateCGImagesAsynchronously(forTimes: getCaptureTimes(asset)) { [weak self] (_, cgImage, _, _, error) in
+        imageGenerator.generateCGImagesAsynchronously(forTimes: getCaptureTimes(asset)) {
+            
+            [weak self] (_, cgImage, _, _, error) in
             
             if let error = error {
-                self?.handleCaptureError?(error.localizedDescription)
+                self?.handleImageError?(error.localizedDescription)
                 return
             }
             
