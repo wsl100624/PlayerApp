@@ -16,6 +16,10 @@ extension UIImage {
     static var pauseIcon: UIImage {
         return UIImage(systemName: "pause.fill")!
     }
+    
+    static var needleIcon: UIImage {
+        return UIImage(named: "needle")!.withTintColor(.white, renderingMode: .alwaysOriginal)
+    }
 }
 
 

@@ -22,6 +22,7 @@
 		BE53705A273CCE85007C9C2F /* CGFloat+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE537059273CCE85007C9C2F /* CGFloat+Ext.swift */; };
 		BE53705C273CCF12007C9C2F /* ThumbnailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE53705B273CCF12007C9C2F /* ThumbnailCell.swift */; };
 		BE53705E273CD2BE007C9C2F /* ScrubberView+CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE53705D273CD2BE007C9C2F /* ScrubberView+CollectionView.swift */; };
+		BE537061273CD383007C9C2F /* NeedleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE537060273CD383007C9C2F /* NeedleView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 		BE537059273CCE85007C9C2F /* CGFloat+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Ext.swift"; sourceTree = "<group>"; };
 		BE53705B273CCF12007C9C2F /* ThumbnailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailCell.swift; sourceTree = "<group>"; };
 		BE53705D273CD2BE007C9C2F /* ScrubberView+CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ScrubberView+CollectionView.swift"; sourceTree = "<group>"; };
+		BE537060273CD383007C9C2F /* NeedleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeedleView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +173,7 @@
 			children = (
 				BE537055273CCD0F007C9C2F /* ScrubberView.swift */,
 				BE53705D273CD2BE007C9C2F /* ScrubberView+CollectionView.swift */,
+				BE537060273CD383007C9C2F /* NeedleView.swift */,
 				BE537057273CCD82007C9C2F /* ThumbnailCollectionView.swift */,
 				BE53705B273CCF12007C9C2F /* ThumbnailCell.swift */,
 			);
@@ -317,6 +320,7 @@
 				BE53704C273CC8FE007C9C2F /* RootNavController.swift in Sources */,
 				BE53704A273CC8AD007C9C2F /* PlayerViewController.swift in Sources */,
 				BE537053273CCB52007C9C2F /* UIButton+Ext.swift in Sources */,
+				BE537061273CD383007C9C2F /* NeedleView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
