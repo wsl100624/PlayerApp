@@ -33,7 +33,8 @@ class PlayerViewController: UIViewController {
     // get current time
     private var timeObserverToken: Any?
     
-    // denominator for seconds, perhaps this should be large enough to match the "shutter speed"?
+    // 600 can represent 24/25/35 fps film
+    // reference: https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwipnNST3JD0AhUFbc0KHXJGDXsQFnoECAYQAQ&url=https%3A%2F%2Fwarrenmoore.net%2Funderstanding-cmtime&usg=AOvVaw0DZBRIxN_pOQaaSIpVBSGR
     private let preferredTimeScale: CMTimeScale = 600
     
     init() {
