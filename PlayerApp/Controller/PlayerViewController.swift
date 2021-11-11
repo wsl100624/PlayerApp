@@ -9,6 +9,10 @@ import UIKit
 
 class PlayerViewController: UIViewController {
     
+    private lazy var playPauseButton = UIButton(image: .playIcon,
+                                                target: self,
+                                                action: #selector(playPauseButtonPressed))
+    
     init() {
         super.init(nibName: nil, bundle: nil)
     }
@@ -20,5 +24,18 @@ class PlayerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .yellow
+        setupPlayPauseButton()
+    }
+    
+    private func setupPlayPauseButton() {
+        let barButtonItem = UIBarButtonItem(customView: playPauseButton)
+        toolbarItems = [.flexibleSpace(), barButtonItem, .flexibleSpace()]
+    }
+    
+    
+    // MARK: - Action
+
+    @objc private func playPauseButtonPressed() {
+        playPauseButton.setPauseIcon()
     }
 }

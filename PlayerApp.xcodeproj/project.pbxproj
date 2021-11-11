@@ -15,6 +15,8 @@
 		BE53703A273CC800007C9C2F /* PlayerAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE537039273CC800007C9C2F /* PlayerAppUITestsLaunchTests.swift */; };
 		BE53704A273CC8AD007C9C2F /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE537049273CC8AD007C9C2F /* PlayerViewController.swift */; };
 		BE53704C273CC8FE007C9C2F /* RootNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE53704B273CC8FE007C9C2F /* RootNavController.swift */; };
+		BE53704F273CCAA9007C9C2F /* UIImage+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE53704E273CCAA9007C9C2F /* UIImage+Ext.swift */; };
+		BE537053273CCB52007C9C2F /* UIButton+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE537052273CCB52007C9C2F /* UIButton+Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +49,8 @@
 		BE537039273CC800007C9C2F /* PlayerAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		BE537049273CC8AD007C9C2F /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		BE53704B273CC8FE007C9C2F /* RootNavController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootNavController.swift; sourceTree = "<group>"; };
+		BE53704E273CCAA9007C9C2F /* UIImage+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Ext.swift"; sourceTree = "<group>"; };
+		BE537052273CCB52007C9C2F /* UIButton+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +103,7 @@
 			children = (
 				BE537016273CC7FF007C9C2F /* AppDelegate.swift */,
 				BE53704D273CC93E007C9C2F /* Controller */,
+				BE537054273CCC12007C9C2F /* Extension */,
 				BE537046273CC830007C9C2F /* Supporting Files */,
 			);
 			path = PlayerApp;
@@ -138,6 +143,15 @@
 				BE537049273CC8AD007C9C2F /* PlayerViewController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		BE537054273CCC12007C9C2F /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				BE53704E273CCAA9007C9C2F /* UIImage+Ext.swift */,
+				BE537052273CCB52007C9C2F /* UIButton+Ext.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -271,8 +285,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE537017273CC7FF007C9C2F /* AppDelegate.swift in Sources */,
+				BE53704F273CCAA9007C9C2F /* UIImage+Ext.swift in Sources */,
 				BE53704C273CC8FE007C9C2F /* RootNavController.swift in Sources */,
 				BE53704A273CC8AD007C9C2F /* PlayerViewController.swift in Sources */,
+				BE537053273CCB52007C9C2F /* UIButton+Ext.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

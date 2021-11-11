@@ -11,6 +11,8 @@ class RootNavController: UINavigationController {
     
     init() {
         super.init(rootViewController: PlayerViewController())
+        isToolbarHidden = false
+        toolbar.scrollEdgeAppearance = UIToolbarAppearance()
     }
     
     required init?(coder aDecoder: NSCoder) {
