@@ -272,6 +272,12 @@ class PlayerViewController: UIViewController {
         ].forEach { $0.isActive = true }
     }
     
+    private func seekToStartIfNeeded() {
+        if player.currentItem?.currentTime() == player.currentItem?.duration {
+            player.seek(to: .zero)
+        }
+    }
+    
     
     // MARK: - Action
 
@@ -280,6 +286,7 @@ class PlayerViewController: UIViewController {
         case .playing:
             player.pause()
         case .paused:
+            seekToStartIfNeeded()
             player.play()
         default:
             player.pause()
