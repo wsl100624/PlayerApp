@@ -11,10 +11,12 @@ class ScrubberView: UIView {
     
     private lazy var collectionView = ThumbnailCollectionView()
     private lazy var needleView = NeedleView()
+    private lazy var timeLabel = TimeLabel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         translatesAutoresizingMaskIntoConstraints = false
+        setupTimeLabel()
         setupCollectionView()
         setupNeedleView()
     }
@@ -49,6 +51,14 @@ class ScrubberView: UIView {
             needleView.topAnchor.constraint(equalTo: collectionView.topAnchor),
             needleView.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor),
             needleView.centerXAnchor.constraint(equalTo: collectionView.centerXAnchor)
+        ].forEach { $0.isActive = true }
+    }
+    
+    private func setupTimeLabel() {
+        addSubview(timeLabel)
+        [
+            timeLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            timeLabel.bottomAnchor.constraint(equalTo: topAnchor, constant: -8)
         ].forEach { $0.isActive = true }
     }
 }

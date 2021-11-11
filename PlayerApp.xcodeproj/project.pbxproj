@@ -23,6 +23,7 @@
 		BE53705C273CCF12007C9C2F /* ThumbnailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE53705B273CCF12007C9C2F /* ThumbnailCell.swift */; };
 		BE53705E273CD2BE007C9C2F /* ScrubberView+CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE53705D273CD2BE007C9C2F /* ScrubberView+CollectionView.swift */; };
 		BE537061273CD383007C9C2F /* NeedleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE537060273CD383007C9C2F /* NeedleView.swift */; };
+		BE537063273CD5BA007C9C2F /* TimeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE537062273CD5BA007C9C2F /* TimeLabel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		BE53705B273CCF12007C9C2F /* ThumbnailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailCell.swift; sourceTree = "<group>"; };
 		BE53705D273CD2BE007C9C2F /* ScrubberView+CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ScrubberView+CollectionView.swift"; sourceTree = "<group>"; };
 		BE537060273CD383007C9C2F /* NeedleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeedleView.swift; sourceTree = "<group>"; };
+		BE537062273CD5BA007C9C2F /* TimeLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeLabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +176,7 @@
 				BE537055273CCD0F007C9C2F /* ScrubberView.swift */,
 				BE53705D273CD2BE007C9C2F /* ScrubberView+CollectionView.swift */,
 				BE537060273CD383007C9C2F /* NeedleView.swift */,
+				BE537062273CD5BA007C9C2F /* TimeLabel.swift */,
 				BE537057273CCD82007C9C2F /* ThumbnailCollectionView.swift */,
 				BE53705B273CCF12007C9C2F /* ThumbnailCell.swift */,
 			);
@@ -311,6 +314,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE53705C273CCF12007C9C2F /* ThumbnailCell.swift in Sources */,
+				BE537063273CD5BA007C9C2F /* TimeLabel.swift in Sources */,
 				BE53705A273CCE85007C9C2F /* CGFloat+Ext.swift in Sources */,
 				BE537056273CCD0F007C9C2F /* ScrubberView.swift in Sources */,
 				BE537017273CC7FF007C9C2F /* AppDelegate.swift in Sources */,
