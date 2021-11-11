@@ -12,7 +12,7 @@ class ThumbnailCollectionView: UICollectionView {
     static func createLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = .init(width: .cellWidth, height: .cellHeight)
-        layout.minimumLineSpacing = 0
+        layout.minimumLineSpacing = 0.5
         layout.scrollDirection = .horizontal
         return layout
     }

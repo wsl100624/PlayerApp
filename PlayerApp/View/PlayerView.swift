@@ -18,6 +18,7 @@ class PlayerView: UIView {
     
     init() {
         super.init(frame: .zero)
+        playerLayer.videoGravity = .resizeAspectFill
         translatesAutoresizingMaskIntoConstraints = false
     }
     

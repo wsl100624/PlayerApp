@@ -69,6 +69,7 @@ class PlayerViewController: UIViewController {
     }
     
     private func loadVideo() {
+        // video reference: https://www.pexels.com/video/high-speed-photography-of-blue-ink-diffusion-in-water-9669109/
         guard let videoUrl = Bundle.main.url(forResource: "video", withExtension: "mp4") else {
             showAlert("Cannot find video.")
             return
@@ -266,8 +267,8 @@ class PlayerViewController: UIViewController {
         [
             playerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             playerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            playerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            playerView.bottomAnchor.constraint(equalTo: scrubberView.topAnchor),
+            playerView.topAnchor.constraint(equalTo: view.topAnchor),
+            playerView.bottomAnchor.constraint(equalTo: scrubberView.topAnchor, constant: -32),
         ].forEach { $0.isActive = true }
     }
     
