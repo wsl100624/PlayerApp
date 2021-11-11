@@ -13,6 +13,8 @@ class PlayerViewController: UIViewController {
                                                 target: self,
                                                 action: #selector(playPauseButtonPressed))
     
+    private lazy var scrubberView = ScrubberView()
+    
     init() {
         super.init(nibName: nil, bundle: nil)
     }
@@ -25,11 +27,22 @@ class PlayerViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .yellow
         setupPlayPauseButton()
+        layout()
     }
     
     private func setupPlayPauseButton() {
         let barButtonItem = UIBarButtonItem(customView: playPauseButton)
         toolbarItems = [.flexibleSpace(), barButtonItem, .flexibleSpace()]
+    }
+    
+    private func layout() {
+        view.addSubview(scrubberView)
+        [
+            scrubberView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrubberView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrubberView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            scrubberView.heightAnchor.constraint(equalToConstant: .cellHeight)
+        ].forEach { $0.isActive = true }
     }
     
     
