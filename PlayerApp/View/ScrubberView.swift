@@ -48,6 +48,20 @@ class ScrubberView: UIView {
         collectionView.contentInset = .init(top: .zero, left: initialInset, bottom: .zero, right: initialInset)
     }
     
+    func updateUI(_ time: Double) {
+        updateTimeLabel(time)
+        moveCollectionView(time)
+    }
+    
+    private func moveCollectionView(_ time: Double) {
+        let totalDuration = asset?.duration.seconds ?? 0.0
+        let ratio = time / totalDuration
+        
+        let totalLength = collectionView.contentSize.width
+        let currentPosition = ratio * totalLength
+        collectionView.contentOffset.x = currentPosition - initialInset
+    }
+    
     private func setupCollectionView() {
         collectionView.dataSource = self
         collectionView.delegate = self

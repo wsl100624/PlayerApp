@@ -33,7 +33,7 @@ class PlayerViewController: UIViewController {
     // get current time
     private var timeObserverToken: Any?
     
-    private let preferredTimeScale: CMTimeScale = 30  // refresh rate to 1/30
+    private let preferredTimeScale: CMTimeScale = 600
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -128,7 +128,7 @@ class PlayerViewController: UIViewController {
     private func updateScrubberView(_ time: CMTime) {
         let timeElapsed = time.seconds
         if player.timeControlStatus == .playing {
-            print(timeElapsed)
+            scrubberView.updateUI(timeElapsed)
         }
     }
     
@@ -229,8 +229,6 @@ class PlayerViewController: UIViewController {
             previousTime = time
             if !isSeekInProgress {
                 trySeekToTime()
-            } else {
-                print("player is busy.. please ignore")
             }
         }
     }

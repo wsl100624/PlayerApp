@@ -29,7 +29,7 @@ extension ScrubberView {
         return  ratio * totalSeconds
     }
     
-    private func updateTimeLabel(_ time: Double) {
+    func updateTimeLabel(_ time: Double) {
         let components = DateComponents(second: Int(time))
         let formatter = DateComponentsFormatter()
         formatter.zeroFormattingBehavior = .pad
