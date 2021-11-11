@@ -12,7 +12,7 @@ class ThumbnailCollectionView: UICollectionView {
     static func createLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = .init(width: .cellWidth, height: .cellHeight)
-        layout.minimumLineSpacing = 5
+        layout.minimumLineSpacing = 0
         layout.scrollDirection = .horizontal
         return layout
     }
@@ -23,7 +23,6 @@ class ThumbnailCollectionView: UICollectionView {
     }
     
     private func setup() {
-        backgroundColor = .red
         translatesAutoresizingMaskIntoConstraints = false
         register(ThumbnailCell.self, forCellWithReuseIdentifier: ThumbnailCell.id)
         alwaysBounceHorizontal = true

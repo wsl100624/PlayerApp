@@ -11,9 +11,26 @@ class ThumbnailCell: UICollectionViewCell {
     
     static let id = String(describing: ThumbnailCell.self)
     
+    private lazy var imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFill
+        return imageView
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .blue
+        addSubview(imageView)
+        [
+            imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            imageView.topAnchor.constraint(equalTo: topAnchor),
+            imageView.bottomAnchor.constraint(equalTo: bottomAnchor),
+        ].forEach { $0.isActive = true }
+    }
+    
+    func fill(_ image: UIImage) {
+        imageView.image = image
     }
     
     required init?(coder: NSCoder) {

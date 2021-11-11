@@ -83,13 +83,17 @@ class PlayerViewController: UIViewController {
 
             if validateValues(for: asset, with: assetKeys) {
                 setupPlayerObservers()
-                playerView.player = player
-                
-                let playerItem = AVPlayerItem(asset: asset)
-                player.replaceCurrentItem(with: playerItem)
+                setupPlayer(asset)
+                scrubberView.asset = asset
             }
         }
         
+    }
+    
+    private func setupPlayer(_ asset: AVAsset) {
+        let playerItem = AVPlayerItem(asset: asset)
+        player.replaceCurrentItem(with: playerItem)
+        playerView.player = player
     }
     
     private func setupPlayerObservers() {
@@ -108,7 +112,7 @@ class PlayerViewController: UIViewController {
             }
         }
         
-        let interval = CMTime(value: 1, timescale: 2)
+        let interval = CMTime(value: 1, timescale: 30) // refresh rate to 1/30
         timeObserverToken = player.addPeriodicTimeObserver(forInterval: interval, queue: .main) { [weak self] time in
             guard let strongSelf = self else { return }
             strongSelf.updateScrubberView(time)
@@ -194,6 +198,10 @@ class PlayerViewController: UIViewController {
             scrubberView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             scrubberView.heightAnchor.constraint(equalToConstant: .cellHeight)
         ].forEach { $0.isActive = true }
+        
+        scrubberView.handleCaptureError = { [weak self] message in
+            self?.showAlert(message)
+        }
     }
     
     private func setupPlayerView() {
