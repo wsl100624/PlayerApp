@@ -24,6 +24,7 @@
 		BE53705E273CD2BE007C9C2F /* ScrubberView+CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE53705D273CD2BE007C9C2F /* ScrubberView+CollectionView.swift */; };
 		BE537061273CD383007C9C2F /* NeedleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE537060273CD383007C9C2F /* NeedleView.swift */; };
 		BE537063273CD5BA007C9C2F /* TimeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE537062273CD5BA007C9C2F /* TimeLabel.swift */; };
+		BE537065273CDCFB007C9C2F /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE537064273CDCFB007C9C2F /* PlayerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		BE53705D273CD2BE007C9C2F /* ScrubberView+CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ScrubberView+CollectionView.swift"; sourceTree = "<group>"; };
 		BE537060273CD383007C9C2F /* NeedleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeedleView.swift; sourceTree = "<group>"; };
 		BE537062273CD5BA007C9C2F /* TimeLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeLabel.swift; sourceTree = "<group>"; };
+		BE537064273CDCFB007C9C2F /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				BE537055273CCD0F007C9C2F /* ScrubberView.swift */,
+				BE537064273CDCFB007C9C2F /* PlayerView.swift */,
 				BE53705D273CD2BE007C9C2F /* ScrubberView+CollectionView.swift */,
 				BE537060273CD383007C9C2F /* NeedleView.swift */,
 				BE537062273CD5BA007C9C2F /* TimeLabel.swift */,
@@ -320,6 +323,7 @@
 				BE537017273CC7FF007C9C2F /* AppDelegate.swift in Sources */,
 				BE53704F273CCAA9007C9C2F /* UIImage+Ext.swift in Sources */,
 				BE53705E273CD2BE007C9C2F /* ScrubberView+CollectionView.swift in Sources */,
+				BE537065273CDCFB007C9C2F /* PlayerView.swift in Sources */,
 				BE537058273CCD82007C9C2F /* ThumbnailCollectionView.swift in Sources */,
 				BE53704C273CC8FE007C9C2F /* RootNavController.swift in Sources */,
 				BE53704A273CC8AD007C9C2F /* PlayerViewController.swift in Sources */,

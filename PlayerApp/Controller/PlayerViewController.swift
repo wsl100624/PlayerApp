@@ -9,11 +9,13 @@ import UIKit
 
 class PlayerViewController: UIViewController {
     
+    private lazy var scrubberView = ScrubberView()
+    
+    private lazy var playerView = PlayerView()
+    
     private lazy var playPauseButton = UIButton(image: .playIcon,
                                                 target: self,
                                                 action: #selector(playPauseButtonPressed))
-    
-    private lazy var scrubberView = ScrubberView()
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -27,7 +29,8 @@ class PlayerViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .yellow
         setupPlayPauseButton()
-        layout()
+        setupScrubberView()
+        setupPlayerView()
     }
     
     private func setupPlayPauseButton() {
@@ -35,13 +38,24 @@ class PlayerViewController: UIViewController {
         toolbarItems = [.flexibleSpace(), barButtonItem, .flexibleSpace()]
     }
     
-    private func layout() {
+    private func setupScrubberView() {
         view.addSubview(scrubberView)
         [
             scrubberView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrubberView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             scrubberView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             scrubberView.heightAnchor.constraint(equalToConstant: .cellHeight)
+        ].forEach { $0.isActive = true }
+    }
+    
+    private func setupPlayerView() {
+        playerView.backgroundColor = .green
+        view.addSubview(playerView)
+        [
+            playerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            playerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            playerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            playerView.bottomAnchor.constraint(equalTo: scrubberView.topAnchor),
         ].forEach { $0.isActive = true }
     }
     
