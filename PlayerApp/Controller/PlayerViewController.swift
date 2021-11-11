@@ -20,6 +20,10 @@ class PlayerViewController: UIViewController {
                                                 target: self,
                                                 action: #selector(playPauseButtonPressed))
     
+    private lazy var previousTime = CMTime.zero
+    
+    private lazy var isSeekInProgress = false
+    
     // get the status of the video (playing, paused, etc)
     private var playerTimeControlStatusObserver: NSKeyValueObservation?
     
@@ -28,6 +32,8 @@ class PlayerViewController: UIViewController {
     
     // get current time
     private var timeObserverToken: Any?
+    
+    private let preferredTimeScale: CMTimeScale = 30  // refresh rate to 1/30
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -112,7 +118,7 @@ class PlayerViewController: UIViewController {
             }
         }
         
-        let interval = CMTime(value: 1, timescale: 30) // refresh rate to 1/30
+        let interval = CMTime(value: 1, timescale: preferredTimeScale)
         timeObserverToken = player.addPeriodicTimeObserver(forInterval: interval, queue: .main) { [weak self] time in
             guard let strongSelf = self else { return }
             strongSelf.updateScrubberView(time)
@@ -202,7 +208,60 @@ class PlayerViewController: UIViewController {
         scrubberView.handleCaptureError = { [weak self] message in
             self?.showAlert(message)
         }
+        
+        scrubberView.handleScroll = { [weak self] currentTime in
+            self?.updateVideo(currentTime)
+        }
     }
+    
+    private func updateVideo(_ currentTime: Double) {
+        let time = CMTime(seconds:currentTime, preferredTimescale: preferredTimeScale)
+        seekVideo(to: time)
+        // tried player.seek(to: time, toleranceBefore: .zero, toleranceAfter: .zero)
+        // but it's pretty laggy, especially when scrolling backward
+    }
+    
+    // reference: https://developer.apple.com/library/archive/qa/qa1820/_index.html#//apple_ref/doc/uid/DTS40016828
+    private func seekVideo(to time: CMTime) {
+        player.pause()
+        
+        if CMTimeCompare(time, previousTime) != 0 {
+            previousTime = time
+            if !isSeekInProgress {
+                trySeekToTime()
+            } else {
+                print("player is busy.. please ignore")
+            }
+        }
+    }
+    
+    private func trySeekToTime() {
+        guard let status = player.currentItem?.status else {
+            showAlert("Cannot find player's current status, perhaps playerItemStatusObserver is lost")
+            return
+        }
+        if status == .readyToPlay {
+            actuallySeekToTime()
+        }
+    }
+    
+    private func actuallySeekToTime() {
+        
+        isSeekInProgress = true
+        let seekTimeInProgress = previousTime
+        
+        player.seek(to: previousTime, toleranceBefore: .zero, toleranceAfter: .zero) { _ in
+            
+            if seekTimeInProgress == self.previousTime {
+                
+                // let the next seek continue
+                self.isSeekInProgress = false
+            } else {
+                self.trySeekToTime()
+            }
+        }
+    }
+    
     
     private func setupPlayerView() {
         view.addSubview(playerView)

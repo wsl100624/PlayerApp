@@ -28,6 +28,7 @@
 		BE537067273CE308007C9C2F /* video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = BE537066273CE308007C9C2F /* video.mp4 */; };
 		BE537069273CE465007C9C2F /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE537068273CE465007C9C2F /* UIViewController+Ext.swift */; };
 		BE53706B273D0A34007C9C2F /* Thumbnail.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE53706A273D0A34007C9C2F /* Thumbnail.swift */; };
+		BE53706E273D12C5007C9C2F /* ScrubberView+ScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE53706D273D12C5007C9C2F /* ScrubberView+ScrollView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,7 @@
 		BE537066273CE308007C9C2F /* video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video.mp4; sourceTree = "<group>"; };
 		BE537068273CE465007C9C2F /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
 		BE53706A273D0A34007C9C2F /* Thumbnail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Thumbnail.swift; sourceTree = "<group>"; };
+		BE53706D273D12C5007C9C2F /* ScrubberView+ScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ScrubberView+ScrollView.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,6 +187,7 @@
 			isa = PBXGroup;
 			children = (
 				BE537055273CCD0F007C9C2F /* ScrubberView.swift */,
+				BE53706D273D12C5007C9C2F /* ScrubberView+ScrollView.swift */,
 				BE53705D273CD2BE007C9C2F /* ScrubberView+CollectionView.swift */,
 				BE537064273CDCFB007C9C2F /* PlayerView.swift */,
 				BE537060273CD383007C9C2F /* NeedleView.swift */,
@@ -334,6 +337,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE53706E273D12C5007C9C2F /* ScrubberView+ScrollView.swift in Sources */,
 				BE53705C273CCF12007C9C2F /* ThumbnailCell.swift in Sources */,
 				BE537063273CD5BA007C9C2F /* TimeLabel.swift in Sources */,
 				BE537069273CE465007C9C2F /* UIViewController+Ext.swift in Sources */,

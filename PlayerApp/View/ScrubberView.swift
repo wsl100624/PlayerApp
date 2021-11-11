@@ -12,11 +12,13 @@ class ScrubberView: UIView {
     
     private lazy var collectionView = ThumbnailCollectionView()
     private lazy var needleView = NeedleView()
-    private lazy var timeLabel = TimeLabel()
+    private(set) lazy var timeLabel = TimeLabel()
     private lazy var dispatchGroup = DispatchGroup()
     private let captureInterval: Double = 5.0
     
+    var initialInset: CGFloat = 0
     var thumbnails = [Thumbnail]()
+    
     var asset: AVAsset? {
         didSet {
             guard let asset = asset else { return }
@@ -25,6 +27,7 @@ class ScrubberView: UIView {
     }
     
     var handleCaptureError: ((String) -> Void)?
+    var handleScroll: ((Double) -> Void)?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -41,8 +44,8 @@ class ScrubberView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let inset = bounds.width / 2
-        collectionView.contentInset = .init(top: .zero, left: inset, bottom: .zero, right: inset)
+        initialInset = bounds.width / 2
+        collectionView.contentInset = .init(top: .zero, left: initialInset, bottom: .zero, right: initialInset)
     }
     
     private func setupCollectionView() {
