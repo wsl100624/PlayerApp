@@ -29,6 +29,9 @@ class ScrubberView: UIView {
     var handleCaptureError: ((String) -> Void)?
     var handleScroll: ((Double) -> Void)?
     
+    var needleViewCenterXConstraint: NSLayoutConstraint!
+    var timeLabelCenterXConstraint: NSLayoutConstraint!
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         translatesAutoresizingMaskIntoConstraints = false
@@ -77,17 +80,23 @@ class ScrubberView: UIView {
     
     private func setupNeedleView() {
         addSubview(needleView)
+        
+        needleViewCenterXConstraint = needleView.centerXAnchor.constraint(equalTo: centerXAnchor)
+        
         [
             needleView.topAnchor.constraint(equalTo: collectionView.topAnchor),
             needleView.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor),
-            needleView.centerXAnchor.constraint(equalTo: collectionView.centerXAnchor)
+            needleViewCenterXConstraint
         ].forEach { $0.isActive = true }
     }
     
     private func setupTimeLabel() {
         addSubview(timeLabel)
+        
+        timeLabelCenterXConstraint = timeLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
+        
         [
-            timeLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            timeLabelCenterXConstraint,
             timeLabel.bottomAnchor.constraint(equalTo: topAnchor, constant: -8)
         ].forEach { $0.isActive = true }
     }

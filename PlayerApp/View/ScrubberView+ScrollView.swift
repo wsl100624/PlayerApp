@@ -14,6 +14,7 @@ extension ScrubberView {
         guard scrollView.isDragging || scrollView.isTracking || scrollView.isDecelerating else { return }
         let currentTime = calculateCurrentTime(scrollView)
         updateTimeLabel(currentTime)
+        snapNeedleAndTimeLabel(scrollView)
         handleScroll?(currentTime)
     }
     
@@ -27,6 +28,22 @@ extension ScrubberView {
         let totalSeconds = asset?.duration.seconds ?? 0.0
         
         return  ratio * totalSeconds
+    }
+    
+    private func snapNeedleAndTimeLabel(_ scrollView: UIScrollView) {
+        let currentPosition = scrollView.contentOffset.x + initialInset
+        let totalLength = scrollView.contentSize.width
+        
+        var dragDistance: CGFloat = 0
+        
+        if currentPosition > totalLength {
+            dragDistance = totalLength - currentPosition
+        } else if currentPosition < 0 {
+            dragDistance = abs(currentPosition)
+        }
+        
+        needleViewCenterXConstraint.constant = dragDistance
+        timeLabelCenterXConstraint.constant = dragDistance
     }
     
     func updateTimeLabel(_ time: Double) {
