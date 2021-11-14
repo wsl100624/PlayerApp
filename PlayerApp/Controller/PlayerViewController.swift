@@ -8,7 +8,7 @@
 import UIKit
 import AVFoundation
 
-class PlayerViewController: UIViewController {
+final class PlayerViewController: UIViewController {
     
     private lazy var player = AVPlayer()
     
@@ -116,6 +116,8 @@ class PlayerViewController: UIViewController {
     }
     
     private func setupPlayer(_ asset: AVAsset) {
+        playerView.accessibilityIdentifier = "playerView"
+        
         let playerItem = AVPlayerItem(asset: asset)
         player.replaceCurrentItem(with: playerItem)
         playerView.player = player
@@ -186,6 +188,8 @@ class PlayerViewController: UIViewController {
     // MARK: - Scrubber View
     
     private func setupScrubberView() {
+        scrubberView.accessibilityIdentifier = "scrubberView"
+        
         view.addSubview(scrubberView)
         [
             scrubberView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
