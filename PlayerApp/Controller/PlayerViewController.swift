@@ -10,13 +10,13 @@ import AVFoundation
 
 final class PlayerViewController: UIViewController {
     
-    private lazy var player = AVPlayer()
+    lazy var player = AVPlayer()
     
-    private lazy var scrubberView = ScrubberView()
+    lazy var scrubberView = ScrubberView()
     
-    private lazy var playerView = PlayerView()
+    lazy var playerView = PlayerView()
     
-    private lazy var playPauseButton = UIButton(image: .playIcon,
+    lazy var playPauseButton = UIButton(image: .playIcon,
                                                 target: self,
                                                 action: #selector(playPauseButtonPressed))
     
@@ -25,17 +25,17 @@ final class PlayerViewController: UIViewController {
     private lazy var isSeekInProgress = false
     
     // get the status of the video (playing, paused, etc)
-    private var playerTimeControlStatusObserver: NSKeyValueObservation?
+    var playerTimeControlStatusObserver: NSKeyValueObservation?
     
     // get the ready to play status of the video
-    private var playerItemStatusObserver: NSKeyValueObservation?
+    var playerItemStatusObserver: NSKeyValueObservation?
     
     // get current time
-    private var timeObserverToken: Any?
+    var timeObserverToken: Any?
     
     // 600 can represent 24/25/35 fps film
     // reference: https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwipnNST3JD0AhUFbc0KHXJGDXsQFnoECAYQAQ&url=https%3A%2F%2Fwarrenmoore.net%2Funderstanding-cmtime&usg=AOvVaw0DZBRIxN_pOQaaSIpVBSGR
-    private let preferredTimeScale: CMTimeScale = 600
+    let preferredTimeScale: CMTimeScale = 600
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -173,7 +173,7 @@ final class PlayerViewController: UIViewController {
         }
     }
     
-    @objc private func playPauseButtonPressed() {
+    @objc func playPauseButtonPressed() {
         switch player.timeControlStatus {
         case .playing:
             player.pause()

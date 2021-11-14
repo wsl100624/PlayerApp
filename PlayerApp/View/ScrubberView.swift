@@ -12,7 +12,7 @@ class ScrubberView: UIView {
     
     private lazy var collectionView = ThumbnailCollectionView()
     private lazy var needleView = NeedleView()
-    private lazy var timeLabel = TimeLabel()
+    lazy var timeLabel = TimeLabel()
     private lazy var dispatchGroup = DispatchGroup()
     
     var centerInset: CGFloat = 0

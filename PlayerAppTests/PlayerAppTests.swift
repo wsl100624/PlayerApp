@@ -12,6 +12,8 @@ import AVFoundation
 class PlayerAppTests: XCTestCase {
     
     var sut: PlayerViewController!
+    
+    var waitTime: TimeInterval = 2
 
     override func setUpWithError() throws {
         try super.setUpWithError()
@@ -77,7 +79,7 @@ class PlayerAppTests: XCTestCase {
             XCTAssertTrue(asset.isPlayable)
         }
         
-        wait(for: [promise], timeout: 2)
+        wait(for: [promise], timeout: waitTime)
     }
     
     func test_asset_does_not_contain_protected_content() {
@@ -95,7 +97,55 @@ class PlayerAppTests: XCTestCase {
             XCTAssertFalse(asset.hasProtectedContent)
         }
         
-        wait(for: [promise], timeout: 2)
+        wait(for: [promise], timeout: waitTime)
+    }
+    
+    func test_observer_exist() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + waitTime) {
+            XCTAssertNotNil(self.sut.timeObserverToken)
+            XCTAssertNotNil(self.sut.playerTimeControlStatusObserver)
+            XCTAssertNotNil(self.sut.playerItemStatusObserver)
+        }
+    }
+    
+    func test_player_is_playing_after_play_button_pressed() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + waitTime) {
+            self.sut.playPauseButtonPressed()
+            XCTAssertTrue(self.sut.player.timeControlStatus == .playing)
+        }
+    }
+    
+    func test_player_is_paused_after_pause_button_pressed() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + waitTime) {
+            self.sut.playPauseButtonPressed()
+            self.sut.playPauseButtonPressed()
+            XCTAssertTrue(self.sut.player.timeControlStatus == .paused)
+        }
+    }
+    
+    func test_player_item_seek_to_correct_time() {
+        
+        let currentTime = CMTime(seconds: waitTime, preferredTimescale: sut.preferredTimeScale)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + waitTime) {
+            self.sut.playPauseButtonPressed()
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + self.waitTime) {
+                XCTAssertEqual(self.sut.player.currentTime(), currentTime)
+            }
+        }
+    }
+    
+    func test_time_label_shows_correct_time() {
+        let currentTimeString: String = "00:02"
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + waitTime) {
+            self.sut.playPauseButtonPressed()
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + self.waitTime) {
+                XCTAssertEqual(self.sut.scrubberView.timeLabel.text, currentTimeString)
+            }
+        }
     }
 
 }
